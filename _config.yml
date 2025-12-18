@@ -1,0 +1,15 @@
+theme: jekyll-theme-primer
+
+exclude:
+  - node_modules
+  - vendor
+  - backend
+  - frontend
+  - .git
+  - .github
+  - package.json
+  - package-lock.json
+  - README.md
+
+include:
+  - .gitignore
