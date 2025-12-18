@@ -50,6 +50,9 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+// Explicitly handle OPTIONS requests for CORS preflight
+app.options("*", cors(corsOptions));
+
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/influencer", influencerRoutes);
