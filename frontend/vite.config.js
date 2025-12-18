@@ -11,12 +11,21 @@ export default defineConfig({
     }
   },
   build: {
-    chunkSizeWarningLimit: 1000, // 1000 kB (default is 500 kB)
+    chunkSizeWarningLimit: 1000,
+    minify: 'terser',
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor': ['react', 'react-dom', 'react-router-dom'],
-          'supabase': ['@supabase/supabase-js'],
+        // Reduce dynamic chunk creation to prevent 404 errors on Vercel
+        manualChunks: (id) => {
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) {
+              return 'react-vendor';
+            }
+            if (id.includes('supabase')) {
+              return 'supabase-vendor';
+            }
+            return 'vendor';
+          }
         }
       }
     }
